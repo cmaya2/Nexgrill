@@ -57,7 +57,7 @@ def main():
                     "C:\\FTP\\GPAEDIProduction\\BK1-Nexgrill2\\Logs\\" + filename[0] + "_" + filename[1] + "_" + datetime.now().strftime("%Y%m%d") + ".log")
                 smtp_handler = logging.handlers.SMTPHandler(mailhost=("smtp.office365.com", 587),
                                                             fromaddr="noreply@gpalogisticsgroup.com",
-                                                            toaddrs=["cmaya@gpalogisticsgroup.com", "avelazquez@gpalogisticsgroup.com", "gpaops20@gpalogisticsgroup.com"],
+                                                            toaddrs=["cmaya@gpalogisticsgroup.com", "avelazquez@gpalogisticsgroup.com", "gpaops20@gpalogisticsgroup.com", "reyna.diaz@gpalogisticsgroup.com"],
                                                             subject=filename[0] + " failed to process for client " + filename[1],
                                                             credentials=('noreply@gpalogisticsgroup.com', 'Turn*17300'),
                                                             secure=())

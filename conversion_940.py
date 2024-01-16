@@ -71,7 +71,7 @@ class Convert_940:
                 ship_to_city_tag.text = seg[1].replace("'", '')
                 ship_to_state_tag.text = seg[2]
                 ship_to_zip_code_tag.text = seg[3]
-                ship_to_country_tag.text = 'US'
+                ship_to_country_tag.text = seg[4]
             if seg[0] == "N1" and seg[1] == "SF":
                 warehouse_code_tag.text = seg[4]
                 facility_tag.text = seg[4]
