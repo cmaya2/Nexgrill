@@ -138,7 +138,7 @@ class Convert_945:
                 if element.tag == 'Dates':
                     for Dates_child_element in element:
                         if Dates_child_element.tag == 'PurchaseOrderDate':
-                            purchase_order_date = Dates_child_element.text
+                            purchase_order_date = Dates_child_element.text.replace('-', '')
                         elif Dates_child_element.tag == 'ShipDate':
                             ship_date = Dates_child_element.text.replace('-', '')
                         elif Dates_child_element.tag == 'EstimatedDeliveryDate':
@@ -187,14 +187,15 @@ class Convert_945:
                             'ST*945*1001~' \
                             'W06*N*' + depositor_order_number + '*' + datetime.now().strftime("%Y%m%d") + '*' + str(shipment_id) + '*' + str(bill_of_lading_number) + '*' + str(purchase_order_number) + '~' \
                             'N1*ST*' + ship_to_name + '*92*' + ship_to_code + '~' \
-                            'N3*' + ship_to_address1 + '~' \
+                            'N3*' + ship_to_address1 + '*' + ship_to_address2 + '~' \
                             'N4*' + ship_to_city + '*' + ship_to_state + '*' + ship_to_zipcode + '*' + ship_to_country + '~' \
                             'N9*ZZ*LTL~' \
                             'N9*BM*' + load_number + '~' \
                             'N9*11*' + customer_name + '~' \
+                            'N9*SN*' + seal_number + '~' \
                             'G62*14*' + purchase_order_date + '~' \
                             'G62*11*' + ship_date + '~' \
-                            'W27*' + transportation_method + '*' + carrier_code + '*' + routing + '~' \
+                            'W27*' + transportation_method + '*' + carrier_code + '*' + routing + '*' + shipment_method_of_payment + '~' \
                             'REF*W9*N~'
             for element in rooted.iter():
                 if element.tag == 'ShipmentDetail':
@@ -302,7 +303,7 @@ class Convert_945:
                                     body_string = body_string + ending_string
                             segment_count = segment_count + 3
                             header_string = header_string + body_string
-            segment_count = segment_count + 14
+            segment_count = segment_count + 15
             footer_string = 'W03*' + str(total_quantity_shipped) + '*' + str(total_shipment_weight) + '*LB*0*Cft*1~' \
                             'SE*' + str(segment_count) + '*1001~' \
                             'GE*1*' + str(sequence_number)[-4:] + '~' \
