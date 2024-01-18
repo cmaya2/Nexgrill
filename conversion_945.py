@@ -182,8 +182,8 @@ class Convert_945:
             sequence_number = int(data[0]) + 1
             cursor.execute("update sequence set sequence_number =" + str(sequence_number) + " where client='general'")
             connection.commit()
-            header_string = 'ISA*00*          *00*          *ZZ*GPALOGISTICS   *12*6464525105     *' + datetime.now().strftime("%y%m%d") + '*' + datetime.now().strftime("%H%M") + '*X*00401*' + str(sequence_number) + '*0*P*>~' \
-                            'GS*SW*GPALOGISTICS*6464525105*' + datetime.now().strftime("%Y%m%d") + '*' + datetime.now().strftime("%H%M") + '*' + str(sequence_number)[-4:] + '*X*004010~' \
+            header_string = 'ISA*00*          *00*          *ZZ*GPALOGISTICS   *12*9095988799     *' + datetime.now().strftime("%y%m%d") + '*' + datetime.now().strftime("%H%M") + '*X*00401*' + str(sequence_number) + '*0*P*>~' \
+                            'GS*SW*GPALOGISTICS*9095988799*' + datetime.now().strftime("%Y%m%d") + '*' + datetime.now().strftime("%H%M") + '*' + str(sequence_number)[-4:] + '*X*004010~' \
                             'ST*945*1001~' \
                             'W06*N*' + depositor_order_number + '*' + datetime.now().strftime("%Y%m%d") + '*' + str(shipment_id) + '*' + str(bill_of_lading_number) + '*' + str(purchase_order_number) + '~' \
                             'N1*ST*' + ship_to_name + '*92*' + ship_to_code + '~' \
