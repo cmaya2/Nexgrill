@@ -15,7 +15,6 @@ class Convert_943:
                 root = et.Element('Transfer')
                 transfer_header_tag = et.SubElement(root, 'TransferHeader')
                 facility_tag = et.SubElement(transfer_header_tag, 'Facility')
-                facility_tag.text = 'BK1'
                 client_tag = et.SubElement(transfer_header_tag, 'Client')
                 client_tag.text = '26'
                 depositor_order_number_tag = et.SubElement(transfer_header_tag, 'DepositorOrderNumber')
@@ -29,6 +28,8 @@ class Convert_943:
                 routing_tag = et.SubElement(transporation_information_tag, 'Routing')
                 receipt_memo_tag = et.SubElement(transfer_header_tag, 'ReceiptMemo')
                 transfer_detail_tag = et.SubElement(root, 'TransferDetail')
+            if seg[0] == 'N1' and seg[1] == 'SF':
+                facility_tag.text = seg[4]
             if seg[0] == 'W06':
                 depositor_order_number = seg[2]
                 purchase_order_number_tag.text = seg[2]
