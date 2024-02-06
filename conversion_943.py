@@ -4,19 +4,24 @@ from datetime import datetime
 
 class Convert_943:
 
-    def __init__(self, formatted_segments):
+    def __init__(self, formatted_segments, path, mantis_import_path, transaction_number, client_id, facility):
         self.formatted_segments = formatted_segments
+        self.path = path
+        self.mantis_import_path = mantis_import_path
+        self.transaction_number = transaction_number
+        self.client_id = client_id
+        self.facility = facility
 
-    def parse_edi(self, formatted_segments):
+    def parse_edi(self):
 
-        for seg in formatted_segments:
+        for seg in self.formatted_segments:
             if seg[0] == 'ST':
                 # Building XML Structure and defining static values
                 root = et.Element('Transfer')
                 transfer_header_tag = et.SubElement(root, 'TransferHeader')
                 facility_tag = et.SubElement(transfer_header_tag, 'Facility')
                 client_tag = et.SubElement(transfer_header_tag, 'Client')
-                client_tag.text = '26'
+                client_tag.text = self.client_id
                 depositor_order_number_tag = et.SubElement(transfer_header_tag, 'DepositorOrderNumber')
                 order_status_tag = et.SubElement(transfer_header_tag, 'OrderStatus')
                 order_status_tag.text = 'New'
@@ -65,6 +70,9 @@ class Convert_943:
                 # Generating File after loop
                 tree = et.ElementTree(root)
                 et.indent(tree, space="\t", level=0)
-                tree.write("C:\\FTP\\GPAEDIProduction\\Integral\\In\\943_26_" + str(depositor_order_number_tag.text) + "_" + datetime.now().strftime("%Y%m%d%H%M%S") + ".xml", encoding="UTF-8", xml_declaration=True)
-                tree.write("C:\\FTP\\GPAEDIProduction\\BK1-Nexgrill2\\Out\\Archive\\943\\943_26_" + str(depositor_order_number) + "_" + datetime.now().strftime("%Y%m%d%H%M%S") + ".xml", encoding="UTF-8", xml_declaration=True)
-
+                tree.write(self.mantis_import_path + self.transaction_number + "_" + self.client_id + "_" + str(
+                    depositor_order_number_tag.text).replace("/", "_") + "_" + datetime.now().strftime(
+                    "%Y%m%d%H%M%S") + ".xml", encoding="UTF-8", xml_declaration=True)
+                tree.write(self.path + "Out\\Archive\\" + self.transaction_number + "\\" + self.transaction_number + "_"
+                           + self.client_id + "_" + str(depositor_order_number_tag.text).replace("/", "_") + "_" + datetime.now().strftime(
+                    "%Y%m%d%H%M%S") + ".xml", encoding="UTF-8", xml_declaration=True)

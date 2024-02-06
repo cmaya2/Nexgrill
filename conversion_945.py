@@ -14,10 +14,15 @@ connection = psycopg2.connect(
 
 class Convert_945:
 
-    def __init__(self, XML):
+    def __init__(self, XML, path, mantis_import_path, transaction_number, client_id, connection):
         self.XML = XML
+        self.path = path
+        self.mantis_import_path = mantis_import_path
+        self.transaction_number = transaction_number
+        self.client_id = client_id
+        self.connection = connection
 
-    def parse_edi(self):
+    def parse_xml(self):
 
             # Load in the XML based on function that checks directory of file out of Class structure
 
@@ -309,11 +314,11 @@ class Convert_945:
                             'GE*1*' + str(sequence_number)[-4:] + '~' \
                             'IEA*1*' + str(sequence_number) + '~'
             completed_string = header_string + footer_string
-            # with open("C:\\FTP\\GPAEDIProduction\\BK1-Nexgrill2\\Out\\945_26_" + str(
-            #         depositor_order_number) + "_" + datetime.now().strftime("%Y%m%d%H%M%S" + ".txt"),
-            #           "w") as acknowledgement_file:
+            # with open(self.path + "Out\\" + self.transaction_number + "_" + self.client_id + "_" + str(depositor_order_number)
+            #           + "_" + datetime.now().strftime("%Y%m%d%H%M%S" + ".txt"), "w") as acknowledgement_file:
             #     acknowledgement_file.write(completed_string)
-            with open("C:\\FTP\\GPAEDIProduction\\BK1-Nexgrill2\\Out\\Archive\\945\\945_26_" + str(
-                    sequence_number) + "_" + datetime.now().strftime("%Y%m%d%H%M%S" + ".txt"),
+            with open(self.path + "Out\\Archive\\" + self.transaction_number + "\\" + self.transaction_number + "_" +
+                      self.client_id + "_" + str(depositor_order_number) + "_" + datetime.now().strftime("%Y%m%d%H%M%S" + ".txt"),
                       "w") as acknowledgement_file:
                 acknowledgement_file.write(completed_string)
+
