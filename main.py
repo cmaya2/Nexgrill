@@ -27,7 +27,7 @@ mantis_path = data[1]
 
 client_root_dir = "BK1-Nexgrill2\\"
 client_id = "26"
-facility = "WN1"
+facility = "BK1"
 path = environment + client_root_dir
 mantis_import_path = mantis_path
 files = os.listdir(path + "In\\")
@@ -58,7 +58,7 @@ def main():
                     # conversion_997.produce_997(formatted_segments, filename[0])
                     os.replace(path + "In\\" + file, path + "In\\Archive\\" + filename[1] + "\\" + rem_extension[0] + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt")
                 if filename[1] == "943":
-                    conversion = Convert_940(formatted_segments, path, mantis_import_path, filename[1], client_id, facility)
+                    conversion = Convert_943(formatted_segments, path, mantis_import_path, filename[1], client_id, facility)
                     conversion.parse_edi()
                 #     conversion_997 = Convert_997(formatted_segments, filename[0])
                 #     conversion_997.produce_997(formatted_segments, filename[0])
