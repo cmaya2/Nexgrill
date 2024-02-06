@@ -41,7 +41,7 @@ def main():
             if rem_extension[1] == "xml":
                pass
             else:
-                with open(str(path + file), 'r', errors="ignore") as edi_file:
+                with open(str(path + "\\In\\" + file), 'r', errors="ignore") as edi_file:
                     lines = edi_file.readlines()
                     unformatted_segments = []
                     for line in lines:
