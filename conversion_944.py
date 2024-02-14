@@ -1,6 +1,8 @@
 import xml.etree.ElementTree as et
 from datetime import datetime
 import psycopg2
+import os
+import sys
 
 # Database settings
 connection = psycopg2.connect(
@@ -23,7 +25,9 @@ class Convert_944:
 
     def parse_xml(self):
         # Load in the edi file based on function that checks directory of file out of Class structure
-
+        formatfilename = str(self.XML)
+        remove_extension = formatfilename.split(".")
+        rem_extension = remove_extension[0].split("\\")
         oak = et.parse(self.XML)
         rooted = oak.getroot()
         counter = 0
@@ -118,6 +122,12 @@ class Convert_944:
                         seal_number = ReferenceInformation_child_element.text
                     elif ReferenceInformation_child_element.tag == 'ReferenceNumber':
                         reference_number = ReferenceInformation_child_element.text
+        try:
+            if len(shipment_id) > 0:
+                pass
+        except TypeError:
+            os.replace(self.XML, self.path + "In\\Archive\\" + self.transaction_number + "\\shipid_" + rem_extension[8] + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt")
+            raise Exception("This reciept confirmation processed without a shipment ID")
         cursor = connection.cursor()
         cursor.execute("SELECT sequence_number FROM public.sequence where client='general'")
         data = cursor.fetchone()

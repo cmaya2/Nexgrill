@@ -36,10 +36,10 @@ class Convert_943:
             if seg[0] == 'N1' and seg[1] == 'SF':
                 facility_tag.text = seg[4]
             if seg[0] == 'W06':
-                depositor_order_number = seg[2]
+                depositor_order_number_tag.text = seg[2]
                 purchase_order_number_tag.text = seg[2]
                 shipment_id_tag.text = seg[4]
-                receipt_memo_tag.text = seg[4]
+                receipt_memo_tag.text = seg[2]
             if seg[0] == 'G62' and seg[1] == '17':
                 estimated_delivery_date = seg[2]
                 estimated_delivery_date = '-'.join(
@@ -63,7 +63,6 @@ class Convert_943:
             try:
                 if seg[0] == 'N9' and seg[1] == 'PO':
                     item_purchase_order_number_tag.text = seg[2]
-                    depositor_order_number_tag.text = seg[2] + "-" + depositor_order_number
             except UnboundLocalError:
                 pass
             if seg[0] == 'SE':
