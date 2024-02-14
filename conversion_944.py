@@ -209,7 +209,7 @@ class Convert_944:
                             elif Item_sub_element.tag == 'PackVolumeUnitOfMeasure':
                                 pack_volume_unit_of_measure = Item_sub_element.text
                         # Generating dynamic values
-                        if received_quantity == "0":
+                        if int(received_quantity) == 0:
                             raise Exception("Container received with a quantity of 0.")
                         body_string = 'W07*' + received_quantity + '*EA**VN*' + item_number + '~'
                         header_string = header_string + body_string

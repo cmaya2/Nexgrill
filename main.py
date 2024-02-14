@@ -66,11 +66,11 @@ def main():
                 if filename[0] == "944":
                     conversion = Convert_944(path + "In\\" + file, path, mantis_import_path, filename[0], client_id, connection)
                     conversion.parse_xml()
-                    os.replace(path + "In\\" + file, path + "In\\Archive\\" + filename[1] + "\\" + rem_extension[0] + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt")
+                    os.replace(path + "In\\" + file, path + "In\\Archive\\" + filename[0] + "\\" + rem_extension[0] + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt")
                 # if filename[0] == "945":
                 #     conversion = Convert_945(path + "In\\" + file, path, mantis_import_path, filename[0], client_id, connection)
                 #     conversion.parse_xml()
-                #     os.replace(path + "In\\" + file, path + "In\\Archive\\" + filename[1] + "\\" + rem_extension[0] + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt")
+                #     os.replace(path + "In\\" + file, path + "In\\Archive\\" + filename[0] + "\\" + rem_extension[0] + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt")
             except BaseException:
                 logger = logging.getLogger()
                 fileHandler = logging.FileHandler(
