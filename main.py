@@ -1,6 +1,7 @@
 import logging
 import logging.handlers
 import os
+import psycopg2
 
 from conversion_832 import *
 from conversion_940 import *
@@ -67,10 +68,10 @@ def main():
                     conversion = Convert_944(path + "In\\" + file, path, mantis_import_path, filename[0], client_id, connection)
                     conversion.parse_xml()
                     os.replace(path + "In\\" + file, path + "In\\Archive\\" + filename[0] + "\\" + rem_extension[0] + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt")
-                # if filename[0] == "945":
-                #     conversion = Convert_945(path + "In\\" + file, path, mantis_import_path, filename[0], client_id, connection)
-                #     conversion.parse_xml()
-                #     os.replace(path + "In\\" + file, path + "In\\Archive\\" + filename[0] + "\\" + rem_extension[0] + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt")
+                if filename[0] == "945":
+                    conversion = Convert_945(path + "In\\" + file, path, mantis_import_path, filename[0], client_id, connection)
+                    conversion.parse_xml()
+                    # os.replace(path + "In\\" + file, path + "In\\Archive\\" + filename[0] + "\\" + rem_extension[0] + '_' + datetime.now().strftime("%Y%m%d%H%M%S") + ".txt")
             except BaseException:
                 logger = logging.getLogger()
                 fileHandler = logging.FileHandler(
@@ -87,9 +88,9 @@ def main():
                 formatter = logging.Formatter('%(asctime)s - %(name)s - %(message)s')
                 fileHandler.setFormatter(formatter)
                 logger.addHandler(fileHandler)
-                logger.addHandler(smtp_handler)
+                # logger.addHandler(smtp_handler)
                 logger.exception("An exception was triggered")
-                os.replace(path + "In\\" + file, path + "In\\err_" + file)
+                # os.replace(path + "In\\" + file, path + "In\\err_" + file)
         except IndexError:
             pass
         except PermissionError:
