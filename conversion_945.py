@@ -212,7 +212,7 @@ class Convert_945:
                                 print(sscc)
                                 if len(sscc) != 20:
                                     raise Exception("This UCC is invalid as it does not meet the 20 character requirement.")
-                                cursor2.execute("select ucc_ParentSSCC from cus_V_NonManifest_UCC_Orders where ucc_Code = '" + sscc + "'")
+                                cursor2.execute("select ucc_ParentSSCC from cus_V_NonManifest_UCC_Orders (NOLOCK) where OrderID = '" + depositor_order_number + "'AND dep_ID = '15'AND ucc_Code = '" + sscc + "'")
                                 lpn_data = cursor.fetchone()
                             body_string = 'LX*' + str(counter) + '~' \
                                           'N9*LV*' + str(lpn_data) + '~' \
